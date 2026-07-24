@@ -7,10 +7,11 @@ export default function Document() {
         <meta charSet="utf-8" />
         <meta
           name="description"
-          content="Cherika Kaushal - trying to make sense of systems (they disagree)"
+          content="Cherika Kaushal builds software for healthcare studies, data-quality experiments, and interactive systems."
         />
-        <meta property="og:title" content="Cherika Kaushal" />
-        <meta property="og:description" content="code - creativity - curiosity - chaos" />
+        <meta property="og:title" content="Cherika Kaushal — Software & Research" />
+        <meta property="og:description" content="Building useful systems around complex data." />
+        <meta name="theme-color" content="#0b0b0f" />
         <link
           rel="icon"
           href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='80'>ck</text></svg>"

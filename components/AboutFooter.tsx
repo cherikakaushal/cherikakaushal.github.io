@@ -1,54 +1,53 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const skills = ['python', 'ml/ai', 'react', 'systems design', 'nlp', 'research', 'ui/ux', 'storytelling'];
+const skills = ['python', 'typescript', 'react', 'next.js', 'node.js', 'express', 'mongodb', 'rest apis', 'jwt', 'pandas'];
 
 const timeline = [
-  { date: '2024.06 - 2024.08', title: 'Full Stack Developer (MERN Stack) Apprenticeship', detail: 'IIT Kanpur' },
-  { date: '2024.08 - 2024.09', title: 'Specialized Training in AI/ML for Geodata Analysis', detail: 'ISRO' },
   {
-    date: '2024.09 - 2024.10',
-    title: 'Studied 5G, 6G Networks & Neural Networks',
-    detail: '@ Punjabi University Patiala',
+    date: '2026.05 — 2026.07',
+    title: 'Summer Research Intern',
+    detail: 'IIT Ropar · Built two full-stack healthcare research platforms, secure APIs, researcher dashboards, and wearable-data workflows.',
   },
   {
-    date: '2024.12 - 2026.05',
+    date: '2025.01 — present',
+    title: 'Software Development Intern',
+    detail: 'BuildVR · Immersive VR software, interactive 3D applications, testing, deployment, and feature implementation.',
+  },
+  {
+    date: '2025.01 — present',
     title: 'Marketing Intern',
-    detail: 'BuildVR & Grubox / Marketing, Content & Product Growth',
+    detail: 'Grubox · Digital campaigns, content planning, brand outreach, and community engagement.',
   },
   {
-    date: '2025.06 - 2025.08',
-    title: 'Summer Intern',
-    detail: 'BuildVR & Grubox / Full-time Development, Marketing & Product Building',
+    date: '2025',
+    title: 'Open Source Contributor',
+    detail: 'GirlScript Summer of Code · Contributions across distributed development teams.',
   },
   {
-    date: '2026.05 - present',
-    title: 'Research Intern',
-    detail: 'IIT Ropar / Data Science, ML & System Behaviour Research',
+    date: '2023 — 2027',
+    title: 'B.Tech Computer Science & Engineering',
+    detail: 'Punjabi University, Patiala · CGPA 7.89/10.',
   },
-  { date: '2026.05 - present', title: 'Signal vs Noise' },
-  { date: '2026.05 - present', title: 'When Systems Break' },
+  {
+    date: 'Recognition',
+    title: 'GDG TechSprint Hackathon Winner',
+    detail: 'Also participated in Smart India Hackathon 2025, Flipkart GRiD, and GenAI Exchange Hackathon 2025.',
+  },
 ];
 
 export function About() {
   const ref = useRef<HTMLElement | null>(null);
+  const [openItem, setOpenItem] = useState(0);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.querySelectorAll<HTMLElement>('.about-reveal').forEach((element, index) => {
-              setTimeout(() => {
-                element.style.opacity = '1';
-                element.style.transform = 'translateY(0)';
-              }, index * 150);
-            });
-          }
-        });
-      },
-      { threshold: 0.2 },
-    );
-
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.querySelectorAll<HTMLElement>('.about-reveal').forEach((element, index) => {
+        setTimeout(() => {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    }), { threshold: 0.12 });
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
@@ -57,67 +56,34 @@ export function About() {
     <section className="about" id="about" ref={ref}>
       <div className="about-inner">
         <div className="section-header">
-          <span className="section-label">/ about</span>
-          <h2 className="section-title">
-            the person
-            <br />
-            <em>behind the code</em>
-          </h2>
+          <span className="section-label">/ experience</span>
+          <h2 className="section-title">research, software<br /><em>& shipped work</em></h2>
         </div>
-
         <div className="about-layout">
           <div>
-            <div className="about-stat about-reveal">
-              <span className="stat-number">2027</span>
-            </div>
+            <div className="about-stat about-reveal"><span className="stat-number">02</span><span className="stat-label">research systems delivered</span></div>
             <div className="about-divider" />
-            <div className="about-stat about-reveal">
-              <p className="about-location">
-                <strong>B.Tech Computer Science Engineering</strong>
-                <br />
-                Punjabi University, Patiala
-              </p>
-            </div>
-            <div className="about-divider" />
-            <div className="about-stat about-reveal">
-              <p className="about-location">2023 - 2027</p>
-            </div>
+            <p className="about-location about-reveal">Research software<br />immersive systems<br />technical communication</p>
           </div>
-
           <div className="about-text">
-            <p className="about-para about-reveal">
-              I&apos;m a Computer Science student at Punjabi University Patiala.
-            </p>
-            <p className="about-para light about-reveal">
-              I work across development, systems, and ideas - and I enjoy exploring how things
-              behave beyond ideal conditions.
-            </p>
-            <p className="about-para about-reveal">
-              I&apos;m drawn to the edges - where systems get weird, where logic meets intuition, and
-              where interesting problems live.
-            </p>
-            <div className="about-skills about-reveal">
-              {skills.map((skill) => (
-                <span key={skill} className="about-skill w3-tag">
-                  {skill}
-                </span>
-              ))}
-            </div>
-
+            <p className="about-para about-reveal">I can take a research requirement from conversation to architecture, implementation, validation, and a system people can use.</p>
+            <p className="about-para light about-reveal">I am most useful where software quality affects the quality of the evidence collected.</p>
+            <div className="about-skills about-reveal">{skills.map((skill) => <span key={skill} className="about-skill w3-tag">{skill}</span>)}</div>
           </div>
         </div>
-
         <div className="research-timeline about-reveal">
           <p className="timeline-label">experience trace</p>
-          <div className="timeline-list">
-            {timeline.map((item) => (
-              <div key={`${item.date}-${item.title}`} className="timeline-item">
+          <div className="timeline-list">{timeline.map((item, index) => {
+            const isOpen = openItem === index;
+            return <article key={`${item.date}-${item.title}`} className={`timeline-item${isOpen ? ' open' : ''}`}>
+              <button type="button" className="timeline-trigger" onClick={() => setOpenItem(isOpen ? -1 : index)} aria-expanded={isOpen}>
                 <span className="timeline-year">{item.date}</span>
                 <span className="timeline-title">{item.title}</span>
-                {item.detail && <span className="timeline-detail">{item.detail}</span>}
-              </div>
-            ))}
-          </div>
+                <span className="timeline-toggle">{isOpen ? '−' : '+'}</span>
+              </button>
+              {isOpen && <p className="timeline-detail">{item.detail}</p>}
+            </article>;
+          })}</div>
         </div>
       </div>
     </section>
@@ -128,38 +94,15 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        <div>
-          <div className="footer-logo">
-            ck<em>.</em>
-          </div>
-          <p className="footer-tagline">building at the edge of systems</p>
-        </div>
+        <div><div className="footer-logo">ck<em>.</em></div><p className="footer-tagline">research software for real conditions</p></div>
         <div className="footer-links">
-          <a
-            href="https://github.com/cherikakaushal"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer-link"
-          >
-            github
-          </a>
-          <a
-            href="https://www.linkedin.com/in/cherika-kaushal-4b9b8b30b"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer-link"
-          >
-            linkedin
-          </a>
-          <a href="mailto:cherikakaushal@gmail.com" className="footer-link">
-            cherikakaushal@gmail.com
-          </a>
+          <a href="/Cherika_Kaushal_CV.pdf" target="_blank" className="footer-link">résumé ↗</a>
+          <a href="https://github.com/cherikakaushal" target="_blank" rel="noreferrer" className="footer-link">github ↗</a>
+          <a href="https://www.linkedin.com/in/cherika-kaushal-4b9b8b30b" target="_blank" rel="noreferrer" className="footer-link">linkedin ↗</a>
+          <a href="mailto:cherikakaushal@gmail.com" className="footer-link">cherikakaushal@gmail.com</a>
         </div>
       </div>
-      <div className="footer-bottom">
-        <span className="footer-copy">2026 cherika kaushal. all rights reserved.</span>
-        <span className="footer-made">made with care and too many broken builds</span>
-      </div>
+      <div className="footer-bottom"><span className="footer-copy">© 2026 Cherika Kaushal</span><span className="footer-made">Patiala, India</span></div>
     </footer>
   );
 }

@@ -9,9 +9,8 @@ type NavProps = {
 const links = [
   { label: 'research', href: '#research' },
   { label: 'work', href: '#work' },
-  { label: 'writing', href: '#writing' },
-  { label: 'ideas', href: '#ideas' },
-  { label: 'about', href: '#about' },
+  { label: 'experience', href: '#about' },
+  { label: 'résumé', href: '/Cherika_Kaushal_CV.pdf' },
 ];
 
 export default function Nav({ theme, toggleTheme }: NavProps) {

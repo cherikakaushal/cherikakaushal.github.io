@@ -5,12 +5,30 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        sans: ['var(--font-geist-sans)', 'Inter', 'sans-serif'],
+        mono: ['var(--font-geist-mono)', 'monospace'],
         display: ['"Playfair Display"', 'serif'],
-        mono: ['"DM Mono"', 'monospace'],
         serif: ['"Cormorant Garamond"', 'serif'],
       },
       colors: {
-        accent: 'var(--accent)',
+        canvas: 'var(--ds-bg)',
+        surface: 'var(--ds-surface)',
+        border: 'var(--ds-border)',
+        ink: 'var(--ds-text)',
+        muted: 'var(--ds-text-secondary)',
+        accent: 'var(--ds-accent)',
+      },
+      maxWidth: {
+        content: '75rem',
+        reading: '42rem',
+      },
+      borderRadius: {
+        button: 'var(--ds-radius-button)',
+        card: 'var(--ds-radius-card)',
+        image: 'var(--ds-radius-image)',
+      },
+      transitionTimingFunction: {
+        ds: 'var(--ds-ease)',
       },
     },
   },

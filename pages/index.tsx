@@ -1,201 +1,52 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { motion, useReducedMotion } from 'framer-motion';
-import { Button, TextLink } from '../components/ui';
-import { SiteNav } from '../components/home/SiteNav';
+import Link from 'next/link';
+import { ArrowDown, ArrowUpRight, Moon, Sun } from 'lucide-react';
 
-const projects = [
-  {
-    title: "Women's Health Platform",
-    summary: 'A longitudinal study platform for symptom tracking, menstrual-health logs, questionnaires, researcher review, and dataset export.',
-    technology: 'React · TypeScript · Node.js · MongoDB',
-    href: 'https://github.com/cherikakaushal/women_health_research_platform',
-  },
-  {
-    title: 'Signal vs Noise',
-    summary: 'Controlled experiments showing how missing values and noise change system outputs and data-quality trade-offs.',
-    technology: 'Python · Pandas · NumPy · Matplotlib',
-    href: 'https://github.com/cherikakaushal/signal-vs-noise',
-  },
-  {
-    title: 'When Systems Break',
-    summary: 'A simulation framework for studying software resilience through explicit, reproducible failure conditions.',
-    technology: 'Python · Systems research · Visualisation',
-    href: 'https://github.com/cherikakaushal/when-systems-break',
-  },
-  {
-    title: 'ARPIS',
-    summary: 'A modular interface for AI-assisted research-paper discovery, exploration, and organisation.',
-    technology: 'React · AI tooling · Research workflows',
-    href: 'https://github.com/cherikakaushal/arpis-AI-Research-Paper-Intelligence-System',
-  },
-  {
-    title: 'CargoX',
-    summary: 'Product and interface work shaped around operational workflows and real implementation constraints.',
-    technology: 'Product engineering · UI/UX · Systems',
-    href: '',
-  },
-];
+function CapabilityAddendum(){const groups=[
+  ['Engineering','Python · C++ · C · JavaScript · TypeScript · SQL · Dart · React · Next.js · Node.js · Express · Flutter · REST APIs'],
+  ['Data & AI','MongoDB · PostgreSQL · Pandas · NumPy · Matplotlib · Scikit-learn · SHAP · ML reliability · Explainable AI'],
+  ['Product & Development','Digital marketing · Content strategy · Production web · Multilingual UX · Technical communication · AI-assisted content · 3D/VR workflows']
+];const learning=[['IIT Kanpur','Full-Stack Web Development · MERN','June–July 2024'],['ISRO / IIRS','AI/ML for Geodata Analysis','August–September 2024'],['GDGoC PUP','AI/ML Express · Top Achiever','']];return <section className="capability-addendum"><div className="capability-groups">{groups.map(([title,value],index)=><article key={title}><span>0{index+1}</span><h3>{title}</h3><p>{value}</p></article>)}</div><div className="verified-learning"><header><span>04</span><h3>Training & Additional Learning</h3><p>Selected technical programmes</p></header><div>{learning.map(([issuer,name,date])=><article key={name}><strong>{issuer}</strong><span>{name}</span>{date&&<small>{date}</small>}</article>)}</div><a href="https://www.linkedin.com/in/cherika-kaushal" target="_blank" rel="noreferrer">View LinkedIn profile <ArrowUpRight/></a></div></section>}
 
-const experience = [
-  ['2026', 'Summer Research Intern', 'Indian Institute of Technology Ropar', 'Designed and developed digital healthcare and research software platforms.'],
-  ['2026', 'Software Development Intern', 'BuildVR', 'Built software features for immersive applications and improved product workflows.'],
-  ['2026', 'TechSprint Winner', 'Google Developer Groups', 'Developed an award-winning technical solution in a team environment.'],
-];
+function PersonalSection(){const achievements=[['National-Level Gold Medalist','Avantika Painting Competition · 2017'],['GDG TechSprint','Hackathon Winner'],['GirlScript Summer of Code','Contributor · 2025'],['District-Level Dodgeball Player','Represented my school at district level']];return <section className="personal-section"><header><span>06 / BEYOND THE WORK</span><h2>A little more about me.</h2><p>A few things I’m proud of—and the interests I keep coming back to.</p></header><div className="personal-achievements">{achievements.map(([title,detail],index)=><article key={title}><span>0{index+1}</span><strong>{title}</strong><p>{detail}</p></article>)}</div><div className="personal-life"><div className="personal-photo"><Image src="/cherika-kaushal.jpeg" alt="Cherika outside the code editor" fill sizes="(max-width:700px) 90vw, 22vw"/></div><div><span>WHEN I’M NOT CODING</span><h3>I still like making things.</h3><p>I paint, travel, play chess, love flowers and music, binge a good web series, and write when the words show up.</p><div className="personal-tags"><span>Painting</span><span>Travel</span><span>Chess</span><span>Music</span><span>Writing</span><span>Flowers</span></div></div></div></section>}
 
-const repositories = [
-  ['Women’s Health Platform', 'Full-stack research software', 'TypeScript', 'https://github.com/cherikakaushal/women_health_research_platform'],
-  ['When Systems Break', 'Controlled failure experiments', 'Python', 'https://github.com/cherikakaushal/when-systems-break'],
-  ['Signal vs Noise', 'Data-quality simulations', 'Python', 'https://github.com/cherikakaushal/signal-vs-noise'],
-];
+function CvCallout(){return <section className="cv-callout cv-callout-live"><div className="cv-copy"><h2>Want the full picture?</h2><p>Research experience, professional work, selected projects, and technical skills — all in one page.</p><div className="github-activity"><div><span>LIVE GITHUB ACTIVITY</span><a href="https://github.com/cherikakaushal" target="_blank" rel="noreferrer">@cherikakaushal <ArrowUpRight/></a></div><img src="https://ghchart.rshah.org/6d28d9/cherikakaushal" alt="Cherika Kaushal's live GitHub contribution activity" loading="lazy"/></div></div><div className="cv-links"><a href="/Cherika_Kaushal_CV.pdf" target="_blank">View CV <ArrowUpRight/></a><a href="https://github.com/cherikakaushal" target="_blank" rel="noreferrer">GitHub <ArrowUpRight/></a><a href="https://www.linkedin.com/in/cherika-kaushal" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight/></a></div></section>}
 
-const technologies = [
-  ['Languages', ['Python', 'C++', 'JavaScript', 'TypeScript']],
-  ['Frameworks', ['React', 'Node.js', 'Next.js', 'FastAPI']],
-  ['Data & tools', ['MongoDB', 'PostgreSQL', 'Git', 'Docker']],
-];
+function SelectedWork(){const [active,setActive]=useState(0);const ranked:{id:string;title:string;type:string;desc:string;tech:string[];href:string;image:string;action?:string;visual?:string}[]=[
+  {id:'01',title:"Women's Health Platform",type:'DIGITAL HEALTH · RESEARCH SYSTEM',desc:'End-to-end software for longitudinal women’s-health studies, connecting participant tracking, questionnaires, physiological data, and researcher review.',tech:['React','TypeScript','Express','MongoDB'],href:'https://github.com/mohitmehta601/women_health_research_platform',action:'View repository',image:'/research-screens/womens-health-app-dashboard.jpg'},
+  {id:'02',title:'Stress Management Platform',type:'MENTAL WELLNESS · RESEARCH SYSTEM',desc:'A session-based platform linking self-reported stress responses with physiological measurements, authenticated APIs, and researcher dashboards.',tech:['React','Node.js','REST APIs','JWT'],href:'https://github.com/cherikakaushal/stress-research-platform',action:'View repository',image:'/research-screens/stress-app-dashboard.jpg'},
+  {id:'03',title:'Grubox Main Website',type:'PRODUCTION WEBSITE · NEXT.JS',desc:'Migrated the company’s live website from Wix to Next.js and continued building frontend features, content systems, and production updates.',tech:['Next.js','Frontend','Production Web'],href:'https://www.grubox.in/',action:'Visit live site',image:'/experience/grubox-cafe.jpg'},
+  {id:'04',title:'BuildVR Multilingual Landing Pages',type:'IMMERSIVE WEB · MULTILINGUAL',desc:'Built multilingual landing experiences supporting BuildVR’s immersive 3D and VR product ecosystem.',tech:['Web Development','Multilingual UX','3D / VR'],href:'https://buildvr-lp.vercel.app/',action:'Visit live site',image:'/experience/buildvr-converter.webp'},
+  {id:'05',title:'ARPIS',type:'AI-ASSISTED RESEARCH TOOL',desc:'A working research operating system for organising papers, projects, notes, and AI-assisted research workflows.',tech:['React','Research UX','AI-assisted Search'],href:'https://arpis-frontend.vercel.app/',action:'Open live app',image:'/independent/arpis-live-light.png'},
+  {id:'06',title:'Cargo-X',type:'FULL-STACK LOGISTICS WEB',desc:'A working logistics platform unifying booking, freight workflows, shipment tracking, and operational analytics.',tech:['React','Vite','Full-stack Web'],href:'https://cargox-theta.vercel.app/',action:'Open live app',image:'/independent/cargox-live.png'},
+  {id:'07',title:'Symptom Scope',type:'MOBILE HEALTH · FLUTTER',desc:'A fully functional, privacy-first mobile triage app with symptom selection, adaptive follow-ups, red-flag screening, educational condition ranking, saved history, and shareable reports.',tech:['Flutter','Dart','Offline-first','Local Storage'],href:'https://github.com/cherikakaushal/symptom-scope',action:'View GitHub',image:'/independent/symptom-scope.png'},
+  {id:'08',title:'When Systems Break',type:'ML RELIABILITY · EXPERIMENT',desc:'A framework for studying machine-learning behaviour under controlled failures including missing data, noise, degradation, and distribution shift.',tech:['Python','Pandas','NumPy','Matplotlib'],href:'https://github.com/cherikakaushal/when-systems-break',action:'View GitHub',image:'/independent/failure-matrix.png'},
+  {id:'09',title:'Signal vs Noise',type:'DATA QUALITY · EXPERIMENT',desc:'Experiments examining how missing values and noise affect outputs and data-quality trade-offs.',tech:['Python','Pandas','NumPy','Matplotlib'],href:'https://github.com/cherikakaushal/signal-vs-noise',action:'View GitHub',image:'/independent/signal-distortion.png'}
+];const project=ranked[active];const move=(amount:number)=>setActive(value=>(value+amount+ranked.length)%ranked.length);return <section className="selected-work" id="selected-work"><SectionHead no="03" label="SELECTED WORK" title="THE WORK, VISUALLY." copy={<>Nine working systems and experiments. Select a project to inspect its interface, context, stack, and full case study.</>}/><div className="project-showcase"><button className="showcase-arrow prev" onClick={()=>move(-1)} aria-label="Previous project">←</button><div className={`showcase-visual visual-${project.visual||'image'}`} key={`visual-${project.id}`}>{project.image?<Image src={project.image} alt={`${project.title} preview`} fill sizes="(max-width:800px) 92vw, 52vw"/>:<div className="project-ui"><header><b>{project.title}</b><span>RESEARCH WORKSPACE</span></header><div className="ui-sidebar"><i/><i/><i/><i/></div><div className="ui-content"><span>PARTICIPANT OVERVIEW</span><h4>Study dashboard</h4><div className="ui-cards"><i/><i/><i/></div><div className="ui-chart"><b/><b/><b/><b/><b/><b/></div></div></div>}<span className="visual-caption">PROJECT / PRODUCT VISUAL</span></div><div className="showcase-copy" key={`copy-${project.id}`}><span>{project.id} / {project.type}</span><h3>{project.title}</h3><p>{project.desc}</p><div className="showcase-tags">{project.tech.map(item=><span key={item}>{item}</span>)}</div><a href={project.href} target={project.href.startsWith('http')?'_blank':undefined} rel={project.href.startsWith('http')?'noreferrer':undefined}>{project.action||(active<4?'View full case study':'View project')} <ArrowUpRight/></a><div className="showcase-count">{project.id} <i/> {String(ranked.length).padStart(2,'0')}</div></div><button className="showcase-arrow next" onClick={()=>move(1)} aria-label="Next project">→</button></div><div className="project-selector" role="tablist" aria-label="Choose a project">{ranked.map((item,index)=><button key={item.id} className={index===active?'active':''} onClick={()=>setActive(index)}><span>{item.id}</span>{item.title}</button>)}</div></section>}
 
-export default function Home() {
-  const [dark, setDark] = useState(false);
-  const reduceMotion = useReducedMotion();
+const projects=[
+  {id:'01',title:"Women's Health Research Platform",label:'DIGITAL HEALTH',desc:'An end-to-end platform for longitudinal menstrual-health and menopause studies, connecting participant tracking, questionnaires, physiological data, and researcher review.',stack:['React','TypeScript','Express','MongoDB'],href:'/work/womens-health',style:'violet'},
+  {id:'02',title:'Stress Management Research Platform',label:'MENTAL WELLNESS · RESEARCH SYSTEM',desc:'A session-based research system linking self-reported stress responses with physiological measurements, authenticated APIs, and researcher dashboards.',stack:['React','Node.js','REST APIs','JWT'],href:'/work/stress-management',style:'dark'},
+  {id:'03',title:'Grubox Production Website',label:'PRODUCTION · FRONTEND',desc:'A production website migrated from Wix to Next.js and developed through ongoing frontend, content, and feature work.',stack:['Next.js','Web','Content systems'],href:'/work/grubox',style:'light'},
+  {id:'04',title:'BuildVR Multilingual Web',label:'IMMERSIVE WEB · 3D/VR',desc:'Multilingual landing pages and technical work across immersive experiences, 3D assets, testing, and deployment.',stack:['Web','3D/VR','Multilingual'],href:'/work/buildvr',style:'lilac'}];
+const stack=[['LANGUAGES','Python · C++ · C · JavaScript · TypeScript · SQL'],['FRONTEND','React · Next.js · Vite · Interface engineering'],['BACKEND','Node.js · Express · REST APIs · JWT'],['DATA','MongoDB · PostgreSQL · Pandas · NumPy'],['TOOLS','Git · GitHub · Linux · Postman']];
 
-  useEffect(() => {
-    setDark(localStorage.getItem('ck-theme') === 'dark');
-  }, []);
-
-  const changeTheme = () => {
-    setDark((value) => {
-      localStorage.setItem('ck-theme', value ? 'light' : 'dark');
-      return !value;
-    });
-  };
-
-  const reveal = {
-    initial: reduceMotion ? false : { opacity: 0, y: 14 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.12 },
-    transition: { duration: reduceMotion ? 0 : 0.28, ease: 'easeOut' as const },
-  };
-
-  return (
-    <>
-      <Head>
-        <title>Cherika Kaushal</title>
-        <meta name="description" content="Software engineer building reliable full-stack systems, research platforms, and open-source projects." />
-        <meta property="og:title" content="Cherika Kaushal" />
-        <meta property="og:description" content="Building software systems that solve real-world problems." />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href="https://cherikakaushal.github.io/" />
-      </Head>
-
-      <div className={`site ds-shell${dark ? ' ds-theme-dark' : ''}`}>
-        <a className="skip-link" href="#main">Skip to content</a>
-        <SiteNav dark={dark} onThemeChange={changeTheme} />
-
-        <main className="home-main" id="main">
-          <motion.section className="home-hero" id="top" initial={reduceMotion ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.28 }}>
-            <div className="hero-block" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className="hero-meta"><span>Cherika Kaushal</span><span>Software Engineer</span></div>
-            <div className="hero-intro">
-              <h1 className="hero-title">Building software systems<br />that solve <em>real-world</em> problems.</h1>
-              <figure className="hero-portrait-demo">
-                <div>
-                  <Image
-                    src="/cherika-kaushal.jpeg"
-                    alt="Cherika Kaushal"
-                    width={960}
-                    height={1280}
-                    sizes="(max-width: 672px) 56vw, (max-width: 992px) 160px, 232px"
-                    priority
-                    fetchPriority="high"
-                  />
-                </div>
-                <figcaption><span>Cherika Kaushal</span><span>2026</span></figcaption>
-              </figure>
-            </div>
-            <div className="hero-bottom">
-              <p className="hero-statement">I design and develop full-stack software, backend systems, research platforms, and open-source projects with a focus on reliability, performance, and thoughtful engineering.</p>
-              <div className="hero-actions">
-                <Button href="#projects">View work</Button>
-                <Button href="/Cherika_Kaushal_CV.pdf" variant="secondary">Resume</Button>
-                <Button href="https://github.com/cherikakaushal" variant="quiet">GitHub ↗</Button>
-                <Button href="https://www.linkedin.com/in/cherika-kaushal-4b9b8b30b" variant="quiet">LinkedIn ↗</Button>
-              </div>
-            </div>
-          </motion.section>
-
-          <motion.section className="home-section" id="projects" {...reveal}>
-            <SectionHead number="01" label="Selected work" title={<>Systems built for <em>use</em>, not display.</>} />
-            <div className="project-ledger">
-              {projects.map((project, index) => <article className="project-row" key={project.title}>
-                <span className="project-index">{String(index + 1).padStart(2, '0')}</span>
-                <div className="project-copy"><h3>{project.title}</h3><p>{project.summary}</p></div>
-                <div className="project-meta"><span>{project.technology}</span>
-                  {project.href ? <div><TextLink href={project.href} target="_blank" rel="noreferrer">GitHub</TextLink><TextLink href={project.href} target="_blank" rel="noreferrer">Case study</TextLink></div> : <small>Private product work</small>}
-                </div>
-              </article>)}
-            </div>
-          </motion.section>
-
-          <motion.section className="home-section" id="experience" {...reveal}>
-            <SectionHead number="02" label="Experience" title={<>A concise record of <em>work</em>.</>} />
-            <div className="editorial-timeline">
-              {experience.map(([year, role, org, copy]) => <article key={`${year}${role}`}>
-                <time>{year}</time><div><p>{org}</p><h3>{role}</h3></div><p className="timeline-copy">{copy}</p><TextLink href="/Cherika_Kaushal_CV.pdf" target="_blank">Read</TextLink>
-              </article>)}
-            </div>
-          </motion.section>
-
-          <motion.section className="home-section" id="open-source" {...reveal}>
-            <SectionHead number="03" label="Open source" title={<>Public work, <em>inspectable</em>.</>} />
-            <div className="opensource-layout">
-              <div className="contribution-panel">
-                <div><span>GitHub contributions</span><TextLink href="https://github.com/cherikakaushal" target="_blank" rel="noreferrer">Open profile</TextLink></div>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="https://ghchart.rshah.org/111111/cherikakaushal" alt="Cherika Kaushal's GitHub contribution graph" loading="lazy" />
-                <p>Repository history, recent pull requests, and contribution activity remain available on GitHub.</p>
-              </div>
-              <div className="repo-list">
-                {repositories.map(([name, copy, language, href]) => <a className="repo-item" href={href} target="_blank" rel="noreferrer" key={name}><div><strong>{name}</strong><p>{copy}</p></div><span>{language} ↗</span></a>)}
-              </div>
-            </div>
-          </motion.section>
-
-          <motion.section className="home-section" id="technologies" {...reveal}>
-            <SectionHead number="04" label="Technologies" title={<>A focused working <em>stack</em>.</>} />
-            <div className="technology-groups">
-              {technologies.map(([group, items]) => <div key={group as string}><p>{group}</p><div>{(items as string[]).map((item) => <span key={item}>{item}</span>)}</div></div>)}
-            </div>
-          </motion.section>
-
-          <motion.section className="home-section resume-block" id="resume" {...reveal}>
-            <div><span className="section-kicker">Résumé · PDF</span><h2>The complete record.</h2><p>Experience, projects, education, achievements, and technical work.</p></div>
-            <Button href="/Cherika_Kaushal_CV.pdf" target="_blank">Download résumé</Button>
-          </motion.section>
-
-          <motion.section className="home-section contact-block" id="contact" {...reveal}>
-            <div><span className="section-kicker">Contact</span><h2>Let’s discuss <em>thoughtful</em> software.</h2></div>
-            <div className="contact-links">
-              <TextLink href="mailto:cherikakaushal@gmail.com">Email</TextLink>
-              <TextLink href="https://github.com/cherikakaushal" target="_blank" rel="noreferrer">GitHub</TextLink>
-              <TextLink href="https://www.linkedin.com/in/cherika-kaushal-4b9b8b30b" target="_blank" rel="noreferrer">LinkedIn</TextLink>
-              <TextLink href="https://cherikakaushal.github.io/">Portfolio</TextLink>
-            </div>
-          </motion.section>
-        </main>
-
-        <footer className="home-main site-footer"><div><strong>Cherika Kaushal</strong><span>Software Engineer</span></div><div><a href="https://github.com/cherikakaushal">GitHub</a><a href="https://www.linkedin.com/in/cherika-kaushal-4b9b8b30b">LinkedIn</a><span>© 2026</span></div></footer>
-      </div>
-    </>
-  );
-}
-
-function SectionHead({ number, label, title }: { number: string; label: string; title: React.ReactNode }) {
-  return <header className="home-section-head"><div><span>{number}</span><p>{label}</p></div><h2>{title}</h2></header>;
-}
+export default function Home(){const root=useRef<HTMLDivElement>(null);const [dark,setDark]=useState(false);useEffect(()=>{const saved=localStorage.getItem('ck-ny-theme');setDark(saved? saved==='dark':matchMedia('(prefers-color-scheme: dark)').matches);const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:.12});root.current?.querySelectorAll('main > section:not(.ny-hero)').forEach(section=>observer.observe(section));return()=>observer.disconnect()},[]);const toggleTheme=()=>setDark(value=>{localStorage.setItem('ck-ny-theme',value?'light':'dark');return !value});const track=(e:React.PointerEvent<HTMLDivElement>)=>{const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;root.current?.style.setProperty('--mx',`${x*18}px`);root.current?.style.setProperty('--my',`${y*18}px`);root.current?.style.setProperty('--rx',`${y*-4}deg`);root.current?.style.setProperty('--ry',`${x*5}deg`)};return <><Head><title>Cherika Kaushal — Software Engineer</title><meta name="description" content="Software engineer building research platforms, production web products, and reliable data systems." /></Head><div className={`ny-site${dark?' ny-dark':''}`} ref={root} onPointerMove={track}>
+  <nav className="ny-nav"><a href="#top" className="ny-mark">CK</a><div className="nav-status"><i/> BUILDING SYSTEMS FOR QUESTIONS THAT MATTER</div><div className="ny-links"><a href="#work">Work</a><a href="#experience">Experience</a><a href="#profile">Profile</a><a href="/Cherika_Kaushal_CV.pdf" target="_blank">CV ↗</a><button type="button" className="theme-toggle" onClick={toggleTheme} aria-label={`Switch to ${dark?'light':'dark'} mode`}>{dark?<Sun size={15}/>:<Moon size={15}/>}</button></div></nav><main>
+  <section className="ny-hero" id="top"><div className="hero-grid"/><div className="hero-number">01</div><div className="hero-primary"><p className="mono-label">COMPUTER SCIENCE × SOFTWARE ENGINEERING</p><h1>CHERIKA<br/><span>KAUSHAL</span></h1><div className="hero-deck"><p>I engineer software for real-world data, research, and people.</p><a href="#work">Explore selected work <ArrowDown size={17}/></a></div></div><div className="hero-visual"><div className="visual-frame"><Image src="/cherika-id-portrait.png" alt="Cherika Kaushal" fill priority sizes="(max-width:700px) 80vw, 32vw" /></div></div><aside className="hero-console"><header><span>profile.ts</span><b>● ● ●</b></header><code>const engineer = {'{'}<br/>  focus: [&quot;research software&quot;,<br/>          &quot;reliable systems&quot;,<br/>          &quot;full-stack products&quot;],<br/>  principle: &quot;clarity &gt; noise&quot;,<br/>  status: &quot;building&quot;<br/>{'}'};</code></aside><div className="hero-metrics"><div><strong>02</strong><span>FULL-STACK<br/>RESEARCH SYSTEMS</span></div><div><strong>02</strong><span>ML / DATA<br/>EXPERIMENTS</span></div><div><strong>03</strong><span>PRODUCTION<br/>PLATFORMS</span></div></div><div className="hero-foot"><span>SCROLL TO INSPECT</span><span>30.7333° N / 76.7794° E</span></div></section>
+  <section className="ny-work research-systems" id="work"><SectionHead no="02" label="RESEARCH & SYSTEMS" title="I BUILD SOFTWARE AROUND REAL RESEARCH PROBLEMS." copy={<>At IIT Ropar, I developed the software infrastructure for two digital-health studies—from participant onboarding to research-ready data.</>}/><div className="research-flow"><span>PARTICIPANT APP</span><i>→</i><span>REST API</span><i>→</i><span>VALIDATION</span><i>→</i><span>MONGODB</span><i>→</i><span>RESEARCHER DASHBOARD</span></div><div className="project-grid research-projects">{projects.slice(0,2).map(p=><Link href={p.href} className={`ny-project ${p.style}`} key={p.id}><div className="project-head"><span>{p.id}</span><span>{p.label}</span><ArrowUpRight/></div><div className="project-body"><h3>{p.title}</h3><p>{p.desc}</p></div><div className="project-stack">{p.stack.map(s=><span key={s}>{s}</span>)}</div><div className="project-cta">VIEW FULL CASE STUDY <ArrowUpRight size={16}/></div></Link>)}</div><div className="research-dossier"><header><span>INTERNSHIP DOSSIER</span><p>Design and Development of Digital Health Applications for Healthcare and Mental Wellness · supervised by Dr. Sujata Pal</p></header><div className="dossier-grid"><article><span>01 / COMPLETE SCOPE</span><h3>What I built</h3><p>Participant web and mobile applications, researcher dashboards, UI/UX, REST APIs, MongoDB schemas, authentication, email verification, wearable-data integration, testing, and version control.</p></article><article><span>02 / SHARED INFRASTRUCTURE</span><h3>One framework, separate studies</h3><p>A shared Node.js and Express backend provides authentication, API validation, database connectivity, email verification, and researcher access while preserving separate routes, collections, workflows, and datasets.</p></article><article><span>03 / PHYSIOLOGICAL DATA</span><h3>Wearable pipeline</h3><p>Custom-device data is received through the participant app, transmitted through authenticated APIs, validated and timestamped, stored in MongoDB, and surfaced in researcher dashboards.</p></article><article><span>04 / RESEARCH OPERATIONS</span><h3>Participant to dataset</h3><p>Role-based JWT access, consent records, participant IDs, questionnaires, symptom and menstrual logs, session histories, researcher notes, cohort summaries, and structured dataset export.</p></article><article><span>05 / ENGINEERING DECISION</span><h3>Backend migration</h3><p>Migrated the Women’s Health backend from FastAPI and PostgreSQL to Node.js and MongoDB while preserving API contracts and adjusting the frontend where required.</p></article><article><span>06 / VALIDATION</span><h3>Tested end to end</h3><p>Authentication, role-based rejection, form validation, dashboard values, API compatibility, and wearable-data transmission were tested. Dashboard values matched raw database records with no breaking API changes.</p></article></div><footer><span>React · TypeScript · Vite · Next.js · Tailwind CSS · ShadCN · Recharts</span><span>Node.js · Express · MongoDB · Mongoose · JWT · Brevo API</span></footer></div></section>
+  <SelectedWork/>
+  <CompactExperience/>
+  <ProfileSection/>
+  <CapabilityAddendum/>
+  <PersonalSection/>
+  <CvCallout/>
+  <section className="simple-contact"><span>CONTACT</span><h2>Let’s talk research.</h2><p>I’m interested in research internships, research collaboration, and building software around real-world data and systems.</p><a href="mailto:cherikakaushal@gmail.com">cherikakaushal@gmail.com <ArrowUpRight/></a><div><a href="https://github.com/cherikakaushal" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/cherika-kaushal-4b9b8b30b" target="_blank" rel="noreferrer">LinkedIn</a><a href="#top">Portfolio</a></div></section>
+  </main><footer className="ny-footer"><span>Cherika Kaushal · CSE Undergraduate · Research & Software</span></footer></div></>}
+function SectionHead({no,label,title,copy}:{no:string;label:string;title:string;copy:React.ReactNode}){const displayNo=label==='PROFESSIONAL EXPERIENCE'?'02':label==='RESEARCH & SYSTEMS'?'03':no;return <header className="section-head"><div><span>{displayNo} / {label}</span><h2>{title}</h2></div><p>{copy}</p></header>}
+function CompactExperience(){const rows=[{id:'01',date:'JAN 2025 — PRESENT',org:'BuildVR',role:'Software Development & Marketing Intern',text:'Working across immersive VR/3D applications, multilingual web experiences, 3D assets, and AI-assisted content workflows.',stack:'3D / VR · Web Development · AI-assisted workflows',href:'https://buildvr.ai/',action:'Visit BuildVR'},{id:'02',date:'JAN 2025 — PRESENT',org:'Grubox',role:'Software Development & Marketing Intern',text:'Migrated the production website from Wix to Next.js and continue working across frontend development, content updates, and digital marketing.',stack:'Next.js · Frontend · Production Web · Marketing',href:'https://www.grubox.in/',action:'Visit Grubox'},{id:'03',date:'MAY — JUL 2026',org:'IIT Ropar',role:'Summer Research Intern',text:'Developed two full-stack platforms for faculty-led digital-health studies, covering participant workflows, dashboards, APIs, authentication, databases, and wearable-data integration.',stack:'React · TypeScript · Node.js · Express · MongoDB · JWT',href:'/Cherika_Kaushal_IIT_Ropar_Internship_Report.pdf',action:'View research'},{id:'04',date:'JUN — JUL 2024',org:'IIT Kanpur',role:'Full-Stack Web Development (MERN)',text:'Completed hands-on training in full-stack web development using the MERN stack.',stack:'MERN Stack · Full-Stack Development',href:'/IITK_Full_Stack_Certificate.pdf',action:'View certificate'}];return <section className="professional-experience compact-experience" id="experience"><SectionHead no="02" label="PROFESSIONAL EXPERIENCE" title="BUILT ACROSS RESEARCH, STARTUPS, AND SOFTWARE." copy={<>From production websites and immersive 3D work to faculty-led research systems.</>}/><div className="experience-table"><div className="experience-table-head"><span>NO.</span><span>PERIOD</span><span>ORGANISATION / ROLE</span><span>CONTRIBUTION</span><span>LINK</span></div>{rows.map(row=><article key={row.id}><span className="experience-id">{row.id}</span><time>{row.date}</time><div className="experience-org"><h3>{row.org}</h3><p>{row.role}</p><small>{row.stack}</small></div><p className="experience-text">{row.text}</p><a href={row.href} target={row.href.startsWith('http')||row.href.endsWith('.pdf')?'_blank':undefined} rel={row.href.startsWith('http')?'noreferrer':undefined}>{row.action}<ArrowUpRight/></a></article>)}</div></section>}
+function ProfileSection(){const technical=[['Languages','Python · C++ · C · JavaScript · TypeScript · SQL'],['Web & Backend','React · Next.js · Node.js · Express.js · Vite · REST APIs · JWT'],['Data & ML','MongoDB · Mongoose · PostgreSQL · Pandas · NumPy · Matplotlib · Scikit-learn · SHAP'],['Tools','Git · GitHub · Linux · VS Code · Postman']];const interests=['Machine Learning Reliability','Explainable AI','Digital Health','Research Software','Data Systems','Resilient Systems'];return <section className="complete-profile" id="profile"><header><span>05 / PROFILE</span><h2>What I work with.<br/><em>What I care about.</em></h2></header><div className="profile-block stack-block"><div className="profile-block-title"><span>01</span><h3>Technical Stack</h3></div><div className="stack-rows">{technical.map(([name,value])=><div key={name}><span>{name}</span><p>{value}</p></div>)}</div></div><div className="profile-block interests-block"><div className="profile-block-title"><span>02</span><h3>Research Interests</h3></div><div className="interest-list">{interests.map(item=><span key={item}>{item}</span>)}</div></div><div className="profile-block achievements-block"><div className="profile-block-title"><span>03</span><h3>Selected Achievements</h3></div><div className="achievement-grid"><article><strong>National-Level Gold Medalist</strong><p>Avantika Painting Competition · 2017</p></article><article><strong>GDG TechSprint</strong><p>Hackathon Winner</p></article><article><strong>GirlScript Summer of Code</strong><p>Contributor · 2025</p></article><article><strong>150+ LeetCode Problems</strong><p>Algorithmic problem solving</p></article></div></div><div className="life-note"><div className="life-photo"><Image src="/cherika-kaushal.jpeg" alt="Cherika outside the code editor" fill sizes="(max-width:700px) 90vw, 30vw"/></div><div><span>BEYOND THE SCREEN</span><h3>A life outside the editor.</h3><p>National-level painter. District-level chess and dodgeball player. Flower-competition winner. Traveller across India. Music always on, web series queued, and words written whenever they arrive.</p><div><span>PAINTING</span><span>TRAVEL</span><span>CHESS</span><span>MUSIC</span><span>WRITING</span><span>FLOWERS</span></div></div></div></section>}
+function IndependentWork(){return <section className="independent-work" id="independent"><SectionHead no="04" label="INDEPENDENT WORK" title="EXPERIMENTS, TOOLS, AND SYSTEMS I BUILT INDEPENDENTLY." copy={<>Projects exploring machine-learning reliability, data quality, research workflows, and full-stack software.</>}/><div className="independent-grid"><article className="independent-project systems-break"><div className="independent-copy"><span>01 / ML RELIABILITY · PYTHON</span><h3>When Systems Break</h3><p>Experimental framework for studying how machine-learning systems behave under controlled failure conditions, including missing data, noise, feature degradation, calibration error, and distribution shift.</p><div>Python · Pandas · NumPy · Matplotlib</div><a href="https://github.com/cherikakaushal/when-systems-break" target="_blank" rel="noreferrer">View GitHub <ArrowUpRight/></a></div><figure><Image src="/independent/failure-matrix.png" alt="Failure matrix generated by the When Systems Break experiments" fill sizes="(max-width:800px) 90vw, 48vw"/><figcaption>Actual experiment output · failure matrix</figcaption></figure></article><article className="independent-project signal-noise"><div className="independent-copy"><span>02 / DATA QUALITY · PYTHON</span><h3>Signal vs Noise</h3><p>Experiments examining how missing values and noise affect system outputs and data-quality trade-offs.</p><div>Python · Pandas · NumPy · Matplotlib</div><a href="https://github.com/cherikakaushal/signal-vs-noise" target="_blank" rel="noreferrer">View GitHub <ArrowUpRight/></a></div><figure><Image src="/independent/signal-distortion.png" alt="Overall distortion comparison generated by Signal vs Noise" fill sizes="(max-width:800px) 90vw, 48vw"/><figcaption>Actual output · distortion comparison</figcaption></figure></article><article className="independent-project arpis-project"><div className="independent-copy"><span>03 / AI-ASSISTED RESEARCH TOOL · REACT</span><h3>ARPIS</h3><p>Interface for exploring and organising research papers, designed around future AI-assisted research workflows.</p><div>React · AI-assisted search</div><a href="https://github.com/cherikakaushal/arpis-AI-Research-Paper-Intelligence-System" target="_blank" rel="noreferrer">View GitHub <ArrowUpRight/></a></div><div className="arpis-interface"><header><b>ARPIS</b><span>Research workspace</span></header><div className="arpis-search">Search papers, authors, or topics… <i>⌘ K</i></div><div className="arpis-results"><span>ARXIV</span><span>IEEE</span><span>PUBMED</span><span>SEMANTIC SCHOLAR</span></div><small>Repository-based interface representation · replaceable with a future UI capture</small></div></article><article className="independent-project cargox-project"><div className="independent-copy"><span>04 / FULL-STACK WEB · REACT / VITE</span><h3>Cargo-X</h3><p>Logistics-platform interface developed as a full-stack web project.</p><div>React · Vite · Full-stack web</div><a href="https://github.com/cherikakaushal/cargo_x" target="_blank" rel="noreferrer">View GitHub <ArrowUpRight/></a></div><figure><Image src="/independent/cargox-hero.png" alt="Cargo-X interface from the project repository" fill sizes="(max-width:800px) 90vw, 48vw"/><figcaption>Actual repository UI asset</figcaption></figure></article></div><div className="other-work"><span>OTHER WORK</span><div><article><strong>5G/6G Neural Networks</strong><p>Research literature analysis</p></article><article><strong>150+ LeetCode Problems</strong><p>Algorithmic problem solving</p></article><article><strong>Open Source</strong><p>GirlScript Summer of Code contributor</p></article></div></div></section>}
+function ProfessionalExperience(){return <section className="professional-experience" id="experience"><SectionHead no="04" label="PROFESSIONAL EXPERIENCE" title="BUILT ACROSS RESEARCH, STARTUPS, AND SOFTWARE." copy={<>From production websites and immersive 3D work to faculty-led research systems, my experience moves between building products and building software for research.</>}/><div className="experience-collage"><article className="experience-feature buildvr-feature"><header><span>01 / BUILDVR</span><div><h3>BuildVR</h3><p>Software Development & Marketing Intern · Jan 2025 — Present</p></div></header><p className="experience-summary">Working across immersive VR/3D applications, multilingual web experiences, 3D assets, and AI-assisted content workflows.</p><div className="experience-visuals"><figure className="visual-large"><Image src="/experience/buildvr-converter.webp" alt="BuildVR video-to-VR conversion interface, shown as company context" fill sizes="(max-width:700px) 90vw, 55vw"/><figcaption>Company product context · VR conversion</figcaption></figure><figure><Image src="/experience/buildvr-viewer.webp" alt="BuildVR immersive viewer interface, shown as company context" fill sizes="(max-width:700px) 45vw, 25vw"/><figcaption>Immersive viewer</figcaption></figure><div className="visual-type"><strong>VR / 3D</strong><span>WEB EXPERIENCES</span><span>AI-ASSISTED WORKFLOWS</span></div></div><footer><span>3D / VR · Web Development · AI-assisted workflows</span><a href="https://buildvr.ai/" target="_blank" rel="noreferrer">Visit BuildVR <ArrowUpRight/></a></footer></article><article className="experience-feature grubox-feature"><header><span>02 / GRUBOX</span><div><h3>Grubox</h3><p>Software Development & Marketing Intern · Jan 2025 — Present</p></div></header><p className="experience-summary">Migrated the production website from Wix to Next.js and continue working across frontend development, content updates, and digital marketing.</p><div className="experience-visuals"><figure className="visual-large"><Image src="/experience/grubox-cafe.jpg" alt="Grubox managed café, shown as company context" fill sizes="(max-width:700px) 90vw, 55vw"/><figcaption>Company context · managed café</figcaption></figure><figure><Image src="/experience/grubox-vending.jpg" alt="Grubox smart vending environment, shown as company context" fill sizes="(max-width:700px) 45vw, 25vw"/><figcaption>Smart vending</figcaption></figure><div className="visual-type"><strong>NEXT.JS</strong><span>PRODUCTION WEB</span><span>CONTENT + MARKETING</span></div></div><footer><span>Next.js · Frontend · Production Web · Marketing</span><a href="https://www.grubox.in/" target="_blank" rel="noreferrer">Visit Grubox <ArrowUpRight/></a></footer></article><article className="experience-feature ropar-feature"><header><span>03 / IIT ROPAR</span><div><h3>Indian Institute of Technology Ropar</h3><p>Summer Research Intern · May — July 2026</p></div></header><p className="experience-summary">Developed two full-stack research software platforms for faculty-led digital-health studies, covering participant workflows, researcher dashboards, REST APIs, authentication, databases, and wearable-data integration.</p><div className="ropar-systems"><Link href="/work/womens-health"><span>01</span><strong>Women’s Health Research Platform</strong><ArrowUpRight/></Link><Link href="/work/stress-management"><span>02</span><strong>Stress Management Research Platform</strong><ArrowUpRight/></Link></div><footer><span>React · TypeScript · Node.js · Express · MongoDB · JWT</span><a href="#work">View research <ArrowUpRight/></a></footer></article><article className="experience-compact"><span>04 / IIT KANPUR</span><div><h3>Indian Institute of Technology Kanpur</h3><p>Full-Stack Web Development (MERN) · Jun — Jul 2024</p></div><p>Completed hands-on training in full-stack web development using the MERN stack.</p><b>MERN Stack · Full-Stack Development</b></article></div></section>}

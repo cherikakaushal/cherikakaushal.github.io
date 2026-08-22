@@ -3,8 +3,8 @@ import { Menu, Moon, Sun, X } from 'lucide-react';
 import { Icon } from '../ui';
 
 const links = [
-  { label: 'Work', href: '#projects' },
-  { label: 'Projects', href: 'https://github.com/cherikakaushal?tab=repositories' },
+  { label: 'Research', href: '#research' },
+  { label: 'Projects', href: '#projects' },
   { label: 'Experience', href: '#experience' },
   { label: 'Resume', href: '/Cherika_Kaushal_CV.pdf' },
   { label: 'Contact', href: '#contact' },

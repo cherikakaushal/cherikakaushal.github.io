@@ -1,0 +1,22 @@
+@media(max-width:600px){
+  html,body,.ny-site{max-width:100%;overflow-x:hidden}
+  .ny-nav{height:60px;grid-template-columns:1fr auto;padding-inline:1rem}
+  .ny-links{gap:.55rem;align-items:center}.ny-links>a:last-of-type{display:block;font-size:.65rem}.ny-links .theme-toggle{display:grid}
+  .ny-hero{min-height:61rem;padding:3.5rem 1rem 1.5rem}
+  .hero-number{top:1.5rem;left:1rem}.hero-primary{width:100%;transform:none}
+  .ny-hero .mono-label{font-size:.48rem;letter-spacing:.07em;white-space:nowrap}
+  .hero-primary h1{max-width:100%;margin:1.4rem 0 1.75rem;font-size:16vw;line-height:.78;letter-spacing:-.075em}
+  .hero-deck{display:block;max-width:100%}.hero-deck p{max-width:22rem;font-size:1.05rem;line-height:1.45}.hero-deck a{margin-top:1.1rem;font-size:.56rem}
+  .hero-visual{top:40%;right:1rem!important;left:auto!important;width:47vw;height:auto;aspect-ratio:1101/1425;transform:none!important;animation:none!important}.visual-frame{clip-path:none}
+  .hero-console{top:72%;right:1rem;bottom:auto;left:1rem;width:auto;transform:none!important;animation:none!important;box-shadow:6px 6px 0 var(--v)}.hero-console code{padding:.8rem;font-size:.5rem;line-height:1.45}
+  .hero-foot{display:none}
+  .section-head{gap:1.2rem;margin-bottom:2.5rem}.section-head h2{font-size:clamp(2.7rem,14vw,4rem);line-height:.88}.section-head>p{font-size:.88rem}
+  .compact-experience,.selected-work,.complete-profile,.personal-section,.cv-callout,.simple-contact{padding-right:1rem;padding-left:1rem}
+  .experience-table article{padding-block:1.25rem}.experience-text{font-size:.78rem}
+  .project-showcase{min-height:0}.showcase-visual{min-height:16rem}.showcase-visual>img{padding:.5rem}.showcase-copy{min-height:25rem;padding:1.5rem}.showcase-copy h3{font-size:2.8rem}.showcase-copy p{font-size:.88rem}.showcase-arrow{top:8rem;width:2.35rem;height:2.35rem}.project-selector button{min-height:3.8rem}
+  .complete-profile{padding-top:3.5rem}.complete-profile>header h2{font-size:3.2rem}.profile-block{padding-block:1.5rem}.interest-list{gap:.4rem}.interest-list span{padding:.55rem .7rem;font-size:.78rem}
+  .capability-addendum{padding-right:1rem;padding-bottom:3.5rem;padding-left:1rem}.capability-groups p{font-size:.88rem}.verified-learning{gap:1.25rem;margin-top:2rem}.verified-learning>div{grid-template-columns:1fr}
+  .personal-section>header{gap:.8rem;margin-bottom:1.75rem}.personal-section>header h2{font-size:2.75rem}.personal-achievements article{min-height:5.25rem}.personal-life h3{font-size:2.25rem}
+  .cv-callout-live{gap:2rem}.cv-callout h2{font-size:clamp(2.8rem,14vw,4rem)}.github-activity{margin-top:1.5rem}.cv-links{width:100%}
+  .simple-contact h2{font-size:clamp(3rem,16vw,4.8rem)}.simple-contact>a{font-size:clamp(1.2rem,6vw,2rem);overflow-wrap:anywhere}
+}

@@ -11,3 +11,6 @@ pnpm-debug.log*
 
 *.tsbuildinfo
 .DS_Store
+*.log
+.mobile-audit.pid
+mobile-*.png

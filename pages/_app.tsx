@@ -4,6 +4,11 @@ import '@fontsource/instrument-serif/400-italic.css';
 import '../styles/globals.css';
 import '../styles/design-system.css';
 import '../styles/home.css';
+import '../styles/case-study.css';
+import '../styles/new-home.css';
+import '../styles/selected-work.css';
+import '../styles/profile-enhanced.css';
+import '../styles/mobile.css';
 import type { AppProps } from 'next/app';
 
 const geistSans = localFont({

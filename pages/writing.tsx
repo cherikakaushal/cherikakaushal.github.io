@@ -25,9 +25,12 @@ export default function Writing() {
     </nav>
     <main>
       <header className={styles.hero}>
+        <div className={styles.heroCopy}>
         <span className={styles.eyebrow}>WORDS, MOMENTS & EVERYTHING IN BETWEEN</span>
         <h1>HOW WE<br/><em>SEE IT</em> YAAR<span>.</span></h1>
         <div className={styles.deck}><p>Notes on being alive, becoming,<br/>and everything in between.</p><a href={writing.publication} target="_blank" rel="noopener noreferrer">Find me on Substack <ArrowUpRight size={17}/></a></div>
+        </div>
+        <figure className={styles.heroArt}><Image src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/journal-illustration.jpg`} alt="Vintage illustration of a seated girl in a full skirt, framed by a decorative black border" width={736} height={736} priority sizes="(max-width: 760px) 85vw, 32vw"/></figure>
       </header>
       <section className={styles.journal} aria-label="Articles and notes">
         <div className={styles.toolbar}>

@@ -28,3 +28,12 @@
 @keyframes mobile-console-in{from{opacity:0;transform:translateY(24px) rotate(-4deg)}to{opacity:1;transform:rotate(-1deg)}}
 @keyframes mobile-orbit{50%{transform:translate(-10px,14px) scale(1.08)}}
 @keyframes mobile-blob{50%{transform:rotate(18deg) translate(7px,-9px);border-radius:62% 38% 34% 66%}}
+
+/* Keep the journal reachable without crowding the desktop status line. */
+.ny-nav{grid-template-columns:auto minmax(0,1fr) auto;gap:2rem}
+.nav-status{justify-self:center;white-space:nowrap}
+.ny-links{align-items:center;gap:clamp(.9rem,1.6vw,1.8rem);white-space:nowrap}
+.ny-links .nav-writing{color:var(--v);border-bottom:1px solid currentColor;padding-block:.3rem}
+.ny-links a:focus-visible{outline:2px solid var(--v);outline-offset:5px}
+@media(max-width:1200px){.ny-nav{grid-template-columns:auto 1fr}.nav-status{display:none}}
+@media(max-width:600px){.ny-nav{gap:1rem}.ny-links{gap:1rem}.ny-links:before{display:none}.ny-links a.nav-writing{display:block;font-size:.7rem}.ny-links>a:last-of-type{font-size:.7rem}.ny-links .theme-toggle{flex-shrink:0}}

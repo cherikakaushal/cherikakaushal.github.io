@@ -4,18 +4,12 @@ import styles from './WritingSection.module.css';
 
 export default function WritingSection() {
   return (
-    <section id="writing" className={styles.section} aria-labelledby="writing-title">
-      <header className={styles.header}>
-        <div>
-          <span className={styles.eyebrow}>07 / WRITING & IDEAS</span>
-          <h2 id="writing-title">A little outside<br/><em>the code.</em></h2>
-        </div>
-        <div className={styles.intro}>
-          <p>Personal essays, passing thoughts, and little moments in between.</p>
-          <p>HOW WE SEE IT YAAR</p>
-          <Link href="/writing">Explore my articles & notes <ArrowUpRight size={18}/></Link>
-        </div>
-      </header>
-    </section>
+    <Link href="/writing" id="writing" className={styles.journal} aria-labelledby="writing-title">
+      <div className={styles.label}><span>MY LITTLE CORNER OF THE INTERNET</span><span>ESSAYS / NOTES / EVERYDAY LIFE</span></div>
+      <div className={styles.body}>
+        <h3 id="writing-title">HOW WE<br/><em>SEE IT</em> YAAR.</h3>
+        <div className={styles.copy}><p>Some things become paintings.<br/>Some become words.</p><span>Personal essays, passing thoughts, and the little moments I want to keep.</span><span className={styles.cta}>Step into my journal <ArrowUpRight size={20}/></span></div>
+      </div>
+    </Link>
   );
 }

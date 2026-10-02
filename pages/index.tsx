@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import WritingSection from '../components/home/WritingSection';
 import { ArrowDown, ArrowUpRight, Moon, Sun } from 'lucide-react';
 
 function CapabilityAddendum(){const groups=[
@@ -42,6 +43,7 @@ export default function Home(){const root=useRef<HTMLDivElement>(null);const [da
   <ProfileSection/>
   <CapabilityAddendum/>
   <PersonalSection/>
+  <WritingSection/>
   <CvCallout/>
   <section className="simple-contact"><span>CONTACT</span><h2>Let’s talk research.</h2><p>I’m interested in research internships, research collaboration, and building software around real-world data and systems.</p><a href="mailto:cherikakaushal@gmail.com">cherikakaushal@gmail.com <ArrowUpRight/></a><div><a href="https://github.com/cherikakaushal" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/cherika-kaushal-4b9b8b30b" target="_blank" rel="noreferrer">LinkedIn</a><a href="#top">Portfolio</a></div></section>
   </main><footer className="ny-footer"><span>Cherika Kaushal · CSE Undergraduate · Research & Software</span></footer></div></>}

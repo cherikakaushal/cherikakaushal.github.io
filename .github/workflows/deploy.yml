@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: '23 * * * *'
 
 permissions:
   contents: read
@@ -41,6 +43,14 @@ jobs:
           else
             echo "NEXT_PUBLIC_BASE_PATH=/${{ github.event.repository.name }}" >> "$GITHUB_ENV"
           fi
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Refresh Substack articles
+        run: python scripts/sync-writing.py
 
       - name: Build static site
         run: npm run build
